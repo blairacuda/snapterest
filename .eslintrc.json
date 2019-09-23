@@ -22,6 +22,12 @@
     ],
     "rules": {
         "linebreak-style": [1, "windows"],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-    }
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "prefer-destructuring": ["warning", {
+            "array": false,
+            "object": false
+          }, {
+            "enforceForRenamedProperties": false
+          }]
+        }
 }

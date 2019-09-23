@@ -1,12 +1,11 @@
-var gulp    = require('gulp');
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
 
-gulp.task('default', function(){
-    return browserify('./source/app.js')
-            .transform(babelify)
-            .bundle()
-            .pipe(source('snapterest.js'))
-            .pipe(gulp.dest('./build/'));
-});
+gulp.task('default', () => browserify('./source/app.js')
+  .transform(babelify, { plugins: ['@babel/plugin-transform-react-jsx'] })
+  .bundle()
+  .pipe(source('snapterest.js'))
+  .pipe(gulp.dest('./build/')));
