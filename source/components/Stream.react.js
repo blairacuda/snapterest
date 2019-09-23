@@ -7,37 +7,38 @@ const Header = require('./Header.react');
 
 const Stream = ReactCreateClass({
   getInitialState() {
-    return { tweet: null };
+    return { 
+      tweet: null
+    };
   },
 
   componentDidMount() {
-    SnapkiteStreamClient.initialiseStream(this.handleNewTweet);
+    SnapkiteStreamClient.initializeStream(this.handleNewTweet);
   },
 
   componentWillUnmount() {
     SnapkiteStreamClient.destroyStream();
   },
 
-  handleNewTweet(tweet) {
+  handleNewTweet: function(tweet) {
     console.log('TWEET');
     this.setState({ tweet: tweet });
   },
 
   render() {
-    const { tweet } = this.state;
-
-    if (tweet) {
+    if (this.state.tweet != null) {
       return (
+        <div>
+        <p>StreamTweet</p>
         <StreamTweet
-          tweet={tweet}
+          tweet={this.state.tweet}
           onAddTweetToCollection={this.props.onAddTweetToCollection}
         />
+        </div>
       );
     }
 
-    return (
-      <Header text="Waiting for public photos from Twitter..." />
-    );
+    return ( <Header text="Waiting for public photos from Twitter..." /> );
   },
 });
 

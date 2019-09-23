@@ -27,18 +27,20 @@ const Application = ReactCreateClass({
   render() {
     return (
       <div className="container-fluid">
+      <p>START</p>
         <div className="row">
-          <div className="col-md-4 text-center">
-            <Stream onAddTweetToCollection={this.addTweetToCollection} />
+            <div className="col-md-4 text-center">
+              <Stream onAddTweetToCollection={this.addTweetToCollection} />
+            </div>
+            <div className="col-md-8">
+              <Collection
+                tweets={this.state.collectionTweets}
+                onRemoveTweetFromCollection={this.removeTweetFromCollection}
+                onRemoveAllTweetsFromCollection={this.removeAllTweetsFromCollection}
+              />
+            </div>
           </div>
-          <div className="col-md-8">
-            <Collection
-              tweets={this.state.collectionTweets}
-              onRemoveTweetFromCollection={this.removeTweetFromCollection}
-              onRemoveAllTweetsFromCollection={this.removeAllTweetsFromCollection}
-            />
-          </div>
-        </div>
+        <p>END</p>
       </div>
     );
   },

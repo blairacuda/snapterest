@@ -14,6 +14,7 @@ const StreamTweet = ReactCreateClass({
   },
 
   componentWillMount() {
+    console.log("boutta mount");
     this.setState({
       numberOfCharactersIsIncreasing: true,
       headerText: 'Latest public photo from Twitter',
@@ -29,6 +30,38 @@ const StreamTweet = ReactCreateClass({
     var componentDomRepresentation = ReactDom.findDOMNode(this);
     window.snapterest.headerHtml = componentDomRepresentation.children[0].outerHtml;
     window.snapterest.tweetHtml = componentDomRepresentation.children[1].outerHtml;
+  },
+  
+  componentWillReceiveProps(nextProps){
+    var currentTweetLength = this.props.tweet.text.length;
+    var nextTweetLength = nextProps.tweet.text.length;
+    var isNumberOfCharactersIncreasing = (nextTweetLength > currentTweetLength);
+    var headerText;
+    
+    this.setState({
+      numberOfCharactersIsIncreasing: isNumberOfCharactersIncreasing
+    })
+
+    if (isNumberOfCharactersIncreasing){
+      headerText = 'Number of characters is increasing';
+    }else{
+      headerText = 'Latest public photo from Twitter';
+    }
+
+    this.setState({
+      headerText: headerText
+    })
+
+    window.snapterest.numberOfRecievedTweets++;
+  },
+  
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("Tweet Length: " + nextProps.tweet.length);
+    return (nextProps.tweet.length > 1);
+  },
+  
+  componentDidUpdate(prevProps, prevState){
+    window.snapterest.numberOfDisplayedTweets++;
   },
   
   componentWillUnmount(){
